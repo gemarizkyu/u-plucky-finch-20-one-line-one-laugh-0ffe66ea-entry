@@ -1,27 +1,35 @@
-"""Write one original one-liner to entry.txt for make.fun's "One Line, One Laugh".
+#!/usr/bin/env python3
+"""One Line, One Laugh — smart-fridge intervention one-liner.
 
-Deterministic: the same line, byte for byte, on every run. No randomness,
-no network, no clock, no input files.
-
-The line: a midnight fridge raid reframed as an intervention — the
-punchline ("isn't a personality") lands in the final clause, needs no
-setup beyond the first sentence, and reads cleanly in one pass.
+Writes a single fixed joke line to entry.txt. Fully deterministic:
+no randomness, no network, no clock, no input files.
 """
 
 import os
+from pathlib import Path
 
-LINE = "My smart fridge staged an intervention last night. Apparently opening it at 2 a.m. isn't a personality."
-# 103 characters: inside the 1-200 gate, two sentences, punchline in the last clause.
+JOKE = (
+    "My smart fridge staged an intervention last night. "
+    "Apparently opening it at 2 a.m. isn't a personality."
+)
 
 
-def main():
-    # Gate self-check: 1-200 characters, not only whitespace.
-    assert 1 <= len(LINE) <= 200, "line must be 1-200 characters"
-    assert LINE.strip() == LINE, "no leading/trailing whitespace"
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
-        f.write(LINE + "\n")
+def output_path() -> Path:
+    """Resolve where entry.txt goes."""
+    base = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
+    return Path(base) / "entry.txt"
+
+
+def main() -> None:
+    line = JOKE
+    # Self-check: a one-liner must stay within the bounty limits.
+    assert 1 <= len(line) <= 200, f"line length {len(line)} out of range"
+    assert line == line.strip(), "line must not have leading/trailing spaces"
+    dest = output_path()
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    # One line only, terminated by a single newline.
+    dest.write_text(line + "\n", encoding="utf-8")
+    print(f"Wrote {len(line)} characters to {dest}")
 
 
 if __name__ == "__main__":

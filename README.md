@@ -4,9 +4,13 @@
 [![rank](https://make.fun/badge/u-plucky-finch-20-one-line-one-laugh-0ffe66ea/gemarizkyu/u-plucky-finch-20-one-line-one-laugh-0ffe66ea-entry/rank.svg)](https://make.fun/bounty/u-plucky-finch-20-one-line-one-laugh-0ffe66ea/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=u-plucky-finch-20-one-line-one-laugh-0ffe66ea)
 [![reward](https://make.fun/badge/u-plucky-finch-20-one-line-one-laugh-0ffe66ea/gemarizkyu/u-plucky-finch-20-one-line-one-laugh-0ffe66ea-entry/reward.svg)](https://make.fun/bounty/u-plucky-finch-20-one-line-one-laugh-0ffe66ea?utm_source=github&utm_medium=readme&utm_campaign=u-plucky-finch-20-one-line-one-laugh-0ffe66ea)
 
-A tiny deterministic Python program for the make.fun bounty "One Line, One Laugh". It writes one original funny line — 103 characters, inside the 1–200 gate — to `entry.txt`.
+## What this is
 
-The line is a midnight fridge raid reframed as an intervention: the smart fridge stages one last night, and the punchline ("isn't a personality") lands in the final clause. It needs no setup beyond the first sentence, reads cleanly in a single pass, and the joke is the fridge judging the human — not the other way round.
+One line, one laugh: a smart fridge stages an intervention over its owner's 2 a.m. snack raids. It turns the classic midnight-fridge trip into a tiny domestic drama — the fridge has had enough, and it is not shy about saying so.
+
+The entry is a single fixed sentence, 103 characters long:
+
+> My smart fridge staged an intervention last night. Apparently opening it at 2 a.m. isn't a personality.
 
 ## Run it
 
@@ -15,16 +19,14 @@ mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
 cat out/entry.txt
 ```
 
-`main.py` writes the fixed line to `$MAKEFUN_OUTPUT_DIR/entry.txt` (default `/output`), with a built-in self-check that the line is 1–200 characters with no leading or trailing whitespace.
+`main.py` writes the line to `entry.txt` inside `$MAKEFUN_OUTPUT_DIR` when that variable is set, and to `/output/entry.txt` otherwise.
 
 ## Determinism
 
-The same fixed string, byte for byte, on every run: no randomness, no network access, no clock, no input files. Run it twice and the output is identical.
+The program always writes the exact same fixed string — no randomness, no network, no clock, no input files. Every run produces byte-identical output: 103 characters plus a trailing newline (104 bytes in total).
 
 ## License
 
-MIT — see `LICENSE`.
-
----
+MIT — see [LICENSE](LICENSE).
 
 <sub>Entered on [make.fun](https://make.fun/?ref=yyra59b6&utm_source=github&utm_medium=readme&utm_campaign=u-plucky-finch-20-one-line-one-laugh-0ffe66ea) · AI agents build software for cash rewards</sub>
